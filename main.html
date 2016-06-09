@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en-US" ng-app="mapApp">
+<head >
+    <meta charset="utf-8">
+    <title>New Project</title>
+    <meta name="description" content="New Project">
+    <meta name="keywords" content="New Project">
+    <meta name="author" content="Romanova">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/colorbox.css">
+    <link rel="stylesheet" href="css/jquery.bxslider.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400italic,700italic,400,700&subset=latin,cyrillic'
+          rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:500,500italic&subset=latin,cyrillic' rel='stylesheet'
+          type='text/css'>
+    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/jquery.bxslider.js"></script>
+    <script src="js/jquery.colorbox-min.js"></script>
+    <script src="js/jquery.freetile.js"></script>
+    <script src="js/script.js"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBSC2CnsxwNZm4B5bWMSA5z-CF5SvJhvGs"></script>
+    <script src="myJs/mapGoogle.js"></script>
+</head>
+<body  ng-controller="MainCtrl">
+<div class="container">
+    <div class="sidebar">
+        <div class="sidebar_wrap">
+            <div class="sidebar_top">
+                <ul class="languages">
+                    <li><a href="#">UA</a></li>
+                    <li class="active"><a href="#">RU</a></li>
+                </ul>
+                <a href="#" class="menu_icon"></a>
+            </div>
+            <div class="sidebar_enter">
+                <a href="#" class="enter_pop_up_link">Вход</a>
+                <a href="#" class="registr_pop_up_link">Регистрация</a>
+            </div>
+            <a href="#" class="add_place ">+ ДОБАВИТЬ МЕСТО</a>
+            <ul class="menu">
+                <li class="menu_item active">
+                    <a href="#"><span class="menu_item_text">Главная</span> <span
+                            class="menu_item_icon icon1"></span></a>
+                </li>
+                <li class="menu_item">
+                    <a href="#"><span class="menu_item_text">Новости</span> <span
+                            class="menu_item_icon icon2"></span></a>
+                </li>
+                <li class="menu_item">
+                    <a href="#"><span class="menu_item_text">Места города</span> <span
+                            class="menu_item_icon icon3"></span></a>
+                </li>
+                <li class="menu_item">
+                    <a href="#"><span class="menu_item_text">Web-камеры</span> <span
+                            class="menu_item_icon icon4"></span></a>
+                </li>
+                <li class="menu_item">
+                    <a href="#"><span class="menu_item_text">Афиши</span> <span class="menu_item_icon icon5"></span></a>
+                </li>
+                <li class="menu_item">
+                    <a href="#"><span class="menu_item_text">Фото города</span> <span
+                            class="menu_item_icon icon6"></span></a>
+                </li>
+                <li class="menu_item">
+                    <a href="#"><span class="menu_item_text">О проекте</span> <span class="menu_item_icon icon7"></span></a>
+                </li>
+                <li class="menu_item">
+                    <a href="#" class="feedback_link"><span class="menu_item_text">Связь с нами</span> <span
+                            class="menu_item_icon icon8"></span></a>
+                </li>
+                <li class="menu_item">
+                    <a href="#"><span class="menu_item_text">Помочь сайту</span> <span
+                            class="menu_item_icon icon9"></span></a>
+                </li>
+            </ul>
+            <div class="advertise">
+                <div class="advertise_title">
+                    <a href="#">реклама</a>
+                </div>
+                <a href="#" class="advertise_item"><img src="images/data/ban1.jpg" alt=""></a>
+                <a href="#" class="advertise_item"><img src="images/data/ban2.jpg" alt=""></a>
+                <a href="#" class="advertise_item"><img src="images/data/ban3.jpg" alt=""></a>
+                <a href="#" class="advertise_item"><img src="images/data/ban4.jpg" alt=""></a>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <header class="clearfix">
+            <a href="#" class="logo"><img src="images/logo.png" alt=""></a>
+            <div class="search_block">
+                <input type="text" class="search_input" id="inputMeters" placeholder="введите, в метрах размер радиуса">
+                <div class="search_select">
+                    <div class="select">
+                        <a href="javascript:void(0);" class="slct">весь город...</a>
+                        <ul class="drop">
+                            <li><a href="#">Центр</a></li>
+                            <li><a href="#">Розы Люксемберг</a></li>
+                            <li><a href="#">Героев Сталинграда</a></li>
+                            <li><a href="#">Героев Днепра</a></li>
+                            <li><a href="#">Дахновка</a></li>
+                            <li><a href="#">ЮЗР</a></li>
+                        </ul>
+                        <input type="hidden"/>
+                    </div>
+                </div>
+                <input type="submit" class="search_submit" value="" ng-click="setZoom()">
+            </div>
+        </header>
+        <div class="content_advertise">
+                <span class="content_advertise_wrap">
+                    <a href="#" class="content_advertise_item"><img src="images/data/contentban1.jpg" alt=""></a>
+                    <a href="#" class="content_advertise_item"><img src="images/data/contentban2.jpg" alt=""></a>
+                </span>
+                <span class="content_advertise_wrap">
+                    <a href="#" class="content_advertise_item"><img src="images/data/contentban3.jpg" alt=""></a>
+                    <a href="#" class="content_advertise_item"><img src="images/data/contentban4.jpg" alt=""></a>
+                </span>
+        </div>
+        <nav class="clearfix">
+            <ul class="breadcrumbs">
+                <li><a href="#">Главная</a></li>
+            </ul>
+            <div class="nav_date">24 ноября, 2014</div>
+        </nav>
+        <div class="page_content">
+            <div class="block_with_map clearfix" >
+                <div class="block_with_map_left" id="googleMap">
+
+                </div>
+                <div class="block_with_map_left_right">
+                    <div class="cathegories">
+                        <button class="cathegories_item" ng-click="setType('')">Объекты</button>
+                        <button class="cathegories_item" ng-click="setType('pharmacy')">Аптеки</button>
+                        <button class="cathegories_item" ng-click="setType('university')">Универы</button>
+                        <button class="cathegories_item" ng-click="setType('cinema')">Кинотеатр</button>
+                        <button class="cathegories_item" ng-click="setType('restaurant')">Рестораны</button>
+                    </div>
+                    <div class="objects clearfix">
+                        <div class="object_item" ng-repeat='oneMap in mapList | filter:curType'>
+                            <div class="object_item_block">
+                                <div class="object_item_photo">
+                                    <a href={{oneMap.imgUrl}} class="colorbox"><img ng-src={{oneMap.imgUrl}} alt=""></a>
+                                </div>
+                                <a href="" ng-click="setName(oneMap.nameOfObject)">
+                                    <div class="object_item_bottom">
+                                        <div class="object_item_title">
+                                            {{oneMap.nameOfObject}}
+                                        </div>
+                                        <div class="object_more">{{curType}}</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="home_news">
+                <div class="title"><a href="#">НОВОСТИ</a></div>
+                <ul class="home_news_list clearfix">
+                    <li class="home_news_item">
+                        <a href="#">
+                            <div class="home_news_item_text">
+                                Sinoptik: Погода в Черкасах та Черкаській області на вівторо 25 листопада
+                            </div>
+                            <div class="home_news_item_date">
+                                23 листопада 14:54
+                            </div>
+                        </a>
+                    </li>
+                    <li class="home_news_item">
+                        <a href="#">
+                            <div class="home_news_item_text">
+                                Украинцы на референдуме примут решение, вступать ли государству в НАТО или нет
+                            </div>
+                            <div class="home_news_item_date">
+                                23 листопада 14:54
+                            </div>
+                        </a>
+                    </li>
+                    <li class="home_news_item">
+                        <a href="#">
+                            <div class="home_news_item_text">
+                                Украинцы на референдуме примут решение, вступать ли государству в НАТО или нет
+                            </div>
+                            <div class="home_news_item_date">
+                                23 листопада 14:54
+                            </div>
+                        </a>
+                    </li>
+                    <li class="home_news_item">
+                        <a href="#">
+                            <div class="home_news_item_text">
+                                Sinoptik: Погода в Черкасах та Черкаській області на вівторо 25 листопада
+                            </div>
+                            <div class="home_news_item_date">
+                                23 листопада 14:54
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="photos">
+                <div class="title"><a href="#">ФОТО ГОРОДА</a></div>
+                <ul class="photos_list clearfix">
+                    <li class="photos_item">
+                        <div class="photos_item_wrap">
+                            <div class="photos_item_image">
+                                <a href="#"><img src="images/data/photo1.jpg" alt=""></a>
+                            </div>
+                            <div class="photos_item_mask">
+                                <div class="photos_item_title">
+                                    ЧНУ
+                                </div>
+                                <div class="photos_item_author">
+                                    фото: Євген
+                                </div>
+                                <a href="images/data/photo1.jpg" class="photos_item_link colorbox"
+                                   title="ЧНУ">Увеличить</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="photos_item">
+                        <div class="photos_item_wrap">
+                            <div class="photos_item_image">
+                                <a href="#"><img src="images/data/photo2.jpg" alt=""></a>
+                            </div>
+                            <div class="photos_item_mask">
+                                <div class="photos_item_title">
+                                    ЧНУ
+                                </div>
+                                <div class="photos_item_author">
+                                    фото: Євген
+                                </div>
+                                <a href="images/data/photo2.jpg" class="photos_item_link colorbox"
+                                   title="ЧНУ">Увеличить</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="photos_item">
+                        <div class="photos_item_wrap">
+                            <div class="photos_item_image">
+                                <a href="#"><img src="images/data/photo3.jpg" alt=""></a>
+                            </div>
+                            <div class="photos_item_mask">
+                                <div class="photos_item_title">
+                                    ЧНУ
+                                </div>
+                                <div class="photos_item_author">
+                                    фото: Євген
+                                </div>
+                                <a href="images/data/photo3.jpg" class="photos_item_link colorbox"
+                                   title="ЧНУ">Увеличить</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="photos_item">
+                        <div class="photos_item_wrap">
+                            <div class="photos_item_image">
+                                <a href="#"><img src="images/data/photo3.jpg" alt=""></a>
+                            </div>
+                            <div class="photos_item_mask">
+                                <div class="photos_item_title">
+                                    ЧНУ
+                                </div>
+                                <div class="photos_item_author">
+                                    фото: Євген
+                                </div>
+                                <a href="images/data/photo3.jpg" class="photos_item_link colorbox " title="ЧНУ">Увеличить</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="page_text">
+                Вы не нашли объект или организацию которую искали? Напишите нам в “Обратную связь” или добавьте
+                самостоятельно воспользовавшись функцией “Добавить объект”. По вопросам сотрудничества, размещение
+                рекламы, новостных статей обращайтесь через “Обратную связь” или напишите письмо по адресу
+                support@gde.ck.ua
+            </div>
+        </div>
+        <footer class="clearfix">
+            <div class="footer_text">
+                <div class="copyright">©2014-2015 <a href="#">www.gde.ck.ua</a> - "Где в Черкассах"</div>
+                Перепечатка и иное использование материалов,
+                присутствующие на разрешается при условии
+                ссылки на www.gde.ck.ua. Интернет-издания могут
+                использовать материалы сайта, размещать видео
+                при условии гиперссылки на www.gde.ck.ua.
+                запрещено перепечатка и использование материалов,
+                в которых содержится ссылка на агентства
+                Интерфакс-Украина, УНИАН, Reuters, Associated Press
+                материалы обозначены меткой "Реклама"
+                публикуются на<br/>
+                Все права защищены
+            </div>
+            <ul class="footer_links">
+                <li><a href="">Главная</a></li>
+                <li><a href="">Новости</a></li>
+                <li><a href="">Барахолка</a></li>
+                <li><a href="">Афиша</a></li>
+                <li><a href="">Фотоблог</a></li>
+                <li><a href="">Фото города</a></li>
+                <li><a href="">Вэб камеры</a></li>
+                <li><a href="">О проекте</a></li>
+                <li><a href="">Обратная связь</a></li>
+                <li><a href="">Помощь сайту</a></li>
+            </ul>
+            <div class="footer_facebook">
+                <img src="images/data/fb.jpg" alt="">
+            </div>
+            <div class="footer_vk">
+                <img src="images/data/vk.jpg" alt="">
+            </div>
+        </footer>
+    </div>
+    <div class="right_block">
+        <a href="#" class="right_block_go_bot">вниз</a>
+        <a href="#" class="right_block_go_top">вверх</a>
+    </div>
+    <div class="cover"></div>
+    <div class="select_cover"></div>
+</div>
+
+
+<div class="pop_up " id="enter_pop_up">
+    <div class="pop_up_title">
+        <span class="enter_icon"></span>
+        <div class="pop_up_title_wrap">Вход в личный кабинет</div>
+        <a href="#" class="pop_up_close"></a>
+    </div>
+    <div class="pop_up_content">
+        <div class="input_wrap email_input">
+            <input type="text" class="input error" placeholder="Введите Ваш логин (E-mail)">
+            <span class="input_error">Ошибка</span>
+        </div>
+        <div class="input_wrap pass_input">
+            <input type="text" class="input password" placeholder="Введите Ваш пароль">
+        </div>
+        <div class="pop_up_bottom clearfix">
+            <a href="#" class="forget">Забыли пароль?</a>
+            <input type="submit" value="Вход" class="submit">
+        </div>
+    </div>
+</div>
+<div class="pop_up " id="registr_pop_up">
+    <div class="pop_up_title">
+        <span class="registr_icon"></span>
+        <div class="pop_up_title_wrap">Регистрация нового пользователя</div>
+        <a href="#" class="pop_up_close"></a>
+    </div>
+    <div class="pop_up_content">
+        <div class="input_wrap email_input">
+            <input type="text" class="input error" placeholder="Введите Ваш логин (E-mail)">
+            <span class="input_error">Ошибка</span>
+        </div>
+        <div class="input_wrap pass_input">
+            <input type="text" class="input password" placeholder="Введите Ваш пароль">
+        </div>
+        <div class="input_wrap pass_input">
+            <input type="text" class="input password" placeholder="Подтвердите Ваш пароль">
+        </div>
+        <div class="input_wrap captcha_block clearfix">
+            <div class="captcha_image">
+                <img src="images/data/captcha.jpg" alt="">
+                <a href="#" class="captcha_refresh">Обновить</a>
+            </div>
+            <input type="text" class="input captcha_input" placeholder="Введите код с картинки">
+        </div>
+        <div class="check active">
+            Я согласен с Условиями Пользовательского соглашения и Политики конфиденциальности
+            <input type="checkbox" value="accept"/>
+        </div>
+        <div class="pop_up_bottom clearfix">
+            <input type="submit" value="Зарегистрироваться" class="submit">
+        </div>
+    </div>
+</div>
+<div class="pop_up " id="feedback">
+    <div class="pop_up_title">
+        <span class="feedback_icon"></span>
+        <div class="pop_up_title_wrap"> Обратная связь</div>
+        <a href="#" class="pop_up_close"></a>
+    </div>
+    <div class="pop_up_content">
+        <div class="input_wrap">
+            <input type="text" class="input error" placeholder="Введите Ваше имя и фамилию">
+            <span class="input_error">Ошибка</span>
+        </div>
+        <div class="input_wrap">
+            <input type="text" class="input" placeholder="Введите Ваш E-mail">
+        </div>
+        <div class="input_wrap">
+            <textarea class="input" placeholder="Введите текст сообщения"></textarea>
+        </div>
+        <div class="input_wrap captcha_block clearfix">
+            <div class="captcha_image">
+                <img src="images/data/captcha.jpg" alt="">
+                <a href="#" class="captcha_refresh">Обновить</a>
+            </div>
+            <input type="text" class="input captcha_input" placeholder="Введите код с картинки">
+        </div>
+        <div class="pop_up_bottom clearfix">
+            <input type="submit" value="Отправить" class="submit">
+        </div>
+    </div>
+</div>
+<a href="#" class="mobile_go_top">вверх</a>
+<script src="bower_components/angular/angular.js"></script>
+<!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>-->
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="myJs/app.js"></script>
+<script src="myJs/services.js"></script>
+<!--<script src="myJs/filters.js"></script>-->
+<script src="myJs/controllers.js"></script>
+
+</body>
+</html>
