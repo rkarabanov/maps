@@ -4,7 +4,8 @@ mapApp.service('mainService',
         return {
             setFilterList: setFilterList,
             changeZoom: changeZoom,
-            changeMarkesStatus: changeMarkesStatus
+            changeMarkesStatus: changeMarkesStatus,
+            toCenterMap:toCenterMap
         };
 
 
@@ -18,17 +19,33 @@ mapApp.service('mainService',
                 el.value="ошибка ввода";
             }
             else for (let one of markersLatLng){
-                map.center=one;
-                map.setZoom(21-el.value/100);
+                // map.center=one;
+                // map.setZoom(Math.round(21-el.value/100));
+                    toCenterMap(el.value,one);
             }
 
         }
+
+        function toCenterMap(zoom,dot) {
+            map.center=dot;
+            zoom>=100? map.setZoom(Math.round(21-zoom/100)): map.setZoom(zoom);
+
+        }
+
 
         function changeMarkesStatus(list) {
             let markersLatLng=[];
             for (let i = 0, j=0; i < markers.length; i++) {
                if(list[j]&&markers[i].title===list[j].nameOfObject){
+                   if(j===0){
+                 toCenterMap(11,markers[i]['position']);
+                       console.log('Yeah');
+                   }
                    j++;
+
+                   // console.log(map.center+" "+ markers[i]['position']);
+                   // map.center=markers[i]['position'];
+                   // console.log(map.center+" "+ markers[i]['position']);
                    markers[i].setMap(map);
                    markersLatLng.push(markers[i]['position']);
 
@@ -39,7 +56,6 @@ mapApp.service('mainService',
                }
             }
             //Почему-то не работает
-            //map.center=markersLatLng[0];
             return markersLatLng;
         }
 
