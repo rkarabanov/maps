@@ -63,7 +63,7 @@ function initMap() {
         map = new google.maps.Map(document.getElementById('googleMap'), {
             center: {lat: 49.444433, lng: 32.059767},
             scrollwheel: false,
-            zoom: 10
+            zoom: 9
         });
     let marker;
     for (let i = 0; i < places.length; i++) {
@@ -74,7 +74,6 @@ function initMap() {
         });
         markers.push(marker);
     }
-  // map=new google.maps.Map(document.getElementById("googleMap"), mapProp);
 }
 
 

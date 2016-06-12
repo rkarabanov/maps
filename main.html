@@ -24,6 +24,7 @@
     <script src="js/script.js"></script>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBSC2CnsxwNZm4B5bWMSA5z-CF5SvJhvGs"></script>
     <script src="myJs/mapGoogle.js"></script>
+
 </head>
 <body  ng-controller="MainCtrl">
 <div class="container">
@@ -126,6 +127,7 @@
             </ul>
             <div class="nav_date">24 ноября, 2014</div>
         </nav>
+
         <div class="page_content">
             <div class="block_with_map clearfix" >
                 <div class="block_with_map_left" id="googleMap">
@@ -133,14 +135,22 @@
                 </div>
                 <div class="block_with_map_left_right">
                     <div class="cathegories">
-                        <button class="cathegories_item" ng-click="setType('')">Объекты</button>
-                        <button class="cathegories_item" ng-click="setType('pharmacy')">Аптеки</button>
-                        <button class="cathegories_item" ng-click="setType('university')">Универы</button>
-                        <button class="cathegories_item" ng-click="setType('cinema')">Кинотеатр</button>
-                        <button class="cathegories_item" ng-click="setType('restaurant')">Рестораны</button>
+                        <!--<a href="#" class="cathegories_item active">Объекты</a>-->
+                        <!--<a href="#" class="cathegories_item">Акции</a>-->
+                        <!--<a href="#" class="cathegories_item">Афиша</a>-->
+                        <!--<a href="#" class="cathegories_item">Кино</a>-->
+                        <a class="cathegories_item" ng-click="setType('')">Объекты</a>
+                        <a class="cathegories_item" ng-click="setType('pharmacy')">Аптеки</a>
+                        <a class="cathegories_item" ng-click="setType('university')">Универы</a>
+                        <a class="cathegories_item" ng-click="setType('cinema')">Кинотеатр</a>
+                        <a class="cathegories_item" ng-click="setType('restaurant')">Рестораны</a>
                     </div>
-                    <div class="objects clearfix">
-                        <div class="object_item" ng-repeat='oneMap in mapList | filter:curType'>
+                        <button  ng-class="{'active':numMapList!==0, 'passive':numMapList===0 }" ng-click="goToPage(-1)">Назад</button>
+
+                        <button  ng-class="{'active':numMapList<mapList.length/4, 'passive':numMapList>(-1+mapList.length/4)}" ng-click="goToPage(1)" >Вперёд</button>
+
+                    <div class="objects clearfix" >
+                        <div class="object_item" ng-repeat='(key,oneMap) in mapList | filter:curType' ng-if="key>=numMapList*4&& key<(numMapList+1)*4">
                             <div class="object_item_block">
                                 <div class="object_item_photo">
                                     <a href={{oneMap.imgUrl}} class="colorbox"><img ng-src={{oneMap.imgUrl}} alt=""></a>
@@ -150,12 +160,14 @@
                                         <div class="object_item_title">
                                             {{oneMap.nameOfObject}}
                                         </div>
-                                        <div class="object_more">{{curType}}</div>
+                                        <div class="object_more" ng-click="setName(oneMap.nameOfObject)">Найти на карте</div>
                                     </div>
                                 </a>
                             </div>
                         </div>
+
                     </div>
+
                 </div>
             </div>
 
@@ -416,6 +428,7 @@
 <script src="bower_components/angular-resource/angular-resource.js"></script>
 <script src="myJs/app.js"></script>
 <script src="myJs/services.js"></script>
+<!--<script src="myJs/directives.js"></script>-->
 <!--<script src="myJs/filters.js"></script>-->
 <script src="myJs/controllers.js"></script>
 
